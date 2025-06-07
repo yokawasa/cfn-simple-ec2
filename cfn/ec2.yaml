@@ -120,7 +120,7 @@ Resources:
           usermod -aG docker ec2-user
       Tags:
         - Key: Name
-          Value: dify-server
+          Value: ec2-server
     DependsOn:
       - IamInstanceProfile
 Outputs:
