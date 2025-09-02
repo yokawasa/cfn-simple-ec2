@@ -68,7 +68,7 @@ replace `<stack-name>`, `<region>`, and `<keypair-name>` with your own values li
 SSH login to the EC2 instance
 
 ```sh
-sh -i yokawasa-aws-ssh.pem ec2-user@<Public-IP-Address>
+ssh -i yokawasa-aws-ssh.pem ec2-user@<Public-IP-Address>
 ```
 
 Spin up an API server (exposing 80 port as 80)
