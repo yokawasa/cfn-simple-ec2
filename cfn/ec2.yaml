@@ -10,6 +10,7 @@ Metadata:
         Parameters:
           - KeyPairName
           - AllowedIP
+          - InstanceType
     ParameterLabels:
       IPv4CIDR:
         default: The Prefix of IPv4 CIDR
@@ -17,6 +18,8 @@ Metadata:
         default: EC2 Key Pair Name
       AllowedIP:
         default: IP Address to allow access from (CIDR format)
+      InstanceType:
+        default: EC2 Instance Type
 Parameters:
   IPv4CIDR:
     Type: String
@@ -32,6 +35,10 @@ Parameters:
     Description: The IP address range that can access the EC2 instance (CIDR format, e.g. 203.0.113.0/24)
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(3[0-2]|[1-2][0-9]|[0-9]))$
     ConstraintDescription: Must be a valid IP CIDR range of the form x.x.x.x/x.
+  InstanceType:
+    Type: String
+    Default: "t4g.micro"
+    Description: EC2 Instance Type
 Resources:
   VPC:
     Type: AWS::CloudFormation::Stack
@@ -93,7 +100,7 @@ Resources:
                   - Arn
       ImageId: "{{resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-arm64}}"
       # InstanceType: t3.micro ## doesn't support arm64 arch (but x86_64)
-      InstanceType:  t4g.micro
+      InstanceType: !Ref InstanceType
       SecurityGroupIds:
         - Fn::GetAtt:
             - VPC

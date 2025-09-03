@@ -54,14 +54,16 @@ aws cloudformation create-stack \
   --template-body file://ec2.yaml \
   --capabilities CAPABILITY_IAM \
    --parameters \
-    ParameterKey=KeyPairName,ParameterValue=<keypair-name>
+    ParameterKey=KeyPairName,ParameterValue=<keypair-name> \
+    ParameterKey=InstanceType,ParameterValue=<instance-type>
 ```
 
-replace `<stack-name>`, `<region>`, and `<keypair-name>` with your own values like this:
+replace `<stack-name>`, `<region>`, `<keypair-name>`, and `<instance-type>` with your own values like this:
 
 - stack-name: simple-ec2
 - region: ap-northeast-1
 - keypair-name: MyEC2KeyPair
+- instance-type: t4g.micro
 
 ## Quick test
 
